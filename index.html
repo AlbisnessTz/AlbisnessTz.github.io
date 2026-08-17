@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlbisnessTz — Engineer. Storyteller. Shepherd of Ideas.</title>
+<style>
+  :root{
+    --ink:#12151f;
+    --paper:#f1ede4;
+    --gold:#c98a2c;
+    --sage:#6f8a63;
+    --rust:#a8542f;
+    --line: rgba(18,21,31,0.14);
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family: 'Georgia', 'Iowan Old Style', serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--gold); color:var(--paper);}
+
+  a{color:inherit;}
+
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+
+  /* --- Field rows signature motif --- */
+  .rows{
+    height:14px;
+    width:100%;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--sage) 0px, var(--sage) 40px,
+      var(--gold) 40px, var(--gold) 80px,
+      var(--rust) 80px, var(--rust) 120px,
+      var(--ink) 120px, var(--ink) 160px
+    );
+    background-size: 640px 100%;
+    opacity:0.9;
+  }
+
+  /* --- Nav --- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:16px; padding-bottom:16px;
+  }
+  .logo{
+    font-family: var(--mono);
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.5px;
+  }
+  .logo span{color:var(--gold);}
+  nav ul{list-style:none; display:flex; gap:22px;}
+  nav a{
+    font-family: var(--mono);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    text-decoration:none;
+    color:var(--ink);
+    opacity:0.75;
+    transition:opacity 0.2s;
+  }
+  nav a:hover{opacity:1; color:var(--rust);}
+  @media (max-width:640px){
+    nav ul{gap:12px;}
+    nav a{font-size:10px;}
+  }
+
+  /* --- Hero --- */
+  .hero{
+    padding:90px 0 70px;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    color:var(--sage);
+    margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:24px; height:1px;
+    background:var(--sage);
+    display:inline-block;
+  }
+  h1{
+    font-family:'Playfair Display', Georgia, serif;
+    font-weight:900;
+    font-size:clamp(38px, 7vw, 74px);
+    line-height:1.02;
+    letter-spacing:-0.5px;
+    max-width:10ch;
+  }
+  h1 em{
+    font-style:normal;
+    color:var(--rust);
+  }
+  .hero p.lede{
+    margin-top:26px;
+    max-width:56ch;
+    font-size:19px;
+    color:rgba(18,21,31,0.82);
+  }
+  .hero-cta{
+    margin-top:34px;
+    display:flex; gap:14px; flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    text-decoration:none;
+    padding:13px 22px;
+    border-radius:2px;
+    display:inline-block;
+    transition: transform 0.15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-solid{background:var(--ink); color:var(--paper);}
+  .btn-outline{border:1px solid var(--ink); color:var(--ink);}
+
+  /* growing seed-to-canopy line, signature element */
+  .growth{
+    margin-top:64px;
+    height:120px;
+    width:100%;
+    max-width:640px;
+  }
+  .growth path{
+    fill:none;
+    stroke:var(--sage);
+    stroke-width:2;
+    stroke-dasharray:520;
+    stroke-dashoffset:520;
+    animation: grow 2.4s ease forwards 0.4s;
+  }
+  .growth circle{
+    fill:var(--gold);
+    opacity:0;
+    animation: bud 0.6s ease forwards 2.2s;
+  }
+  @keyframes grow{ to{ stroke-dashoffset:0; } }
+  @keyframes bud{ to{ opacity:1; } }
+  @media (prefers-reduced-motion: reduce){
+    .growth path{animation:none; stroke-dashoffset:0;}
+    .growth circle{animation:none; opacity:1;}
+  }
+
+  /* --- Section shell --- */
+  section{padding:64px 0;}
+  .section-head{
+    display:flex; align-items:baseline; gap:14px;
+    margin-bottom:36px;
+  }
+  .section-num{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--rust);
+  }
+  h2{
+    font-family:'Playfair Display', Georgia, serif;
+    font-size:clamp(26px,4vw,36px);
+    font-weight:800;
+  }
+
+  /* --- About --- */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:48px;
+  }
+  @media (max-width:720px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid p{margin-bottom:16px; font-size:16px; color:rgba(18,21,31,0.85);}
+  .roots{
+    background:var(--ink);
+    color:var(--paper);
+    padding:26px;
+    border-radius:3px;
+    font-family:var(--mono);
+    font-size:13px;
+    line-height:1.8;
+  }
+  .roots .k{color:var(--gold);}
+  .roots .v{color:var(--paper); opacity:0.9;}
+
+  /* --- Skills --- */
+  .skill-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(190px,1fr));
+    gap:2px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .skill-cell{
+    background:var(--paper);
+    padding:22px;
+  }
+  .skill-cell h3{
+    font-family:var(--mono);
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--rust);
+    margin-bottom:10px;
+  }
+  .skill-cell ul{list-style:none; font-size:14.5px;}
+  .skill-cell li{padding:3px 0; opacity:0.85;}
+  .skill-cell li::before{content:'— '; color:var(--sage);}
+
+  /* --- Services --- */
+  .services{
+    display:flex; flex-direction:column;
+  }
+  .service-row{
+    display:grid;
+    grid-template-columns:70px 1fr;
+    gap:20px;
+    padding:24px 0;
+    border-top:1px solid var(--line);
+  }
+  .service-row:last-child{border-bottom:1px solid var(--line);}
+  .service-row .num{font-family:var(--mono); color:var(--gold); font-size:14px;}
+  .service-row h3{font-size:19px; margin-bottom:6px; font-family:'Playfair Display',serif;}
+  .service-row p{font-size:15px; color:rgba(18,21,31,0.78); max-width:60ch;}
+
+  /* --- Channels --- */
+  .channels{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:16px;
+  }
+  .channel-card{
+    border:1px solid var(--line);
+    padding:22px;
+    border-radius:3px;
+    transition:border-color 0.2s;
+  }
+  .channel-card:hover{border-color:var(--rust);}
+  .channel-card .plat{
+    font-family:var(--mono);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--sage);
+    margin-bottom:8px;
+  }
+  .channel-card a{
+    text-decoration:none;
+    font-size:15px;
+    font-weight:bold;
+    border-bottom:1px solid var(--gold);
+  }
+  .channel-card p{font-size:13.5px; margin-top:8px; opacity:0.75;}
+
+  /* --- Spiritual --- */
+  .spirit-block{
+    background: linear-gradient(180deg, var(--ink), #1b2030);
+    color:var(--paper);
+    padding:44px 32px;
+    border-radius:4px;
+    position:relative;
+    overflow:hidden;
+  }
+  .spirit-block::before{
+    content:'';
+    position:absolute; inset:0;
+    background: repeating-linear-gradient(135deg, rgba(201,138,44,0.06) 0 2px, transparent 2px 26px);
+  }
+  .spirit-block blockquote{
+    font-family:'Playfair Display', serif;
+    font-size:clamp(20px,3vw,28px);
+    line-height:1.4;
+    position:relative;
+    z-index:1;
+  }
+  .spirit-block cite{
+    display:block;
+    margin-top:18px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--gold);
+    font-style:normal;
+    position:relative; z-index:1;
+  }
+
+  /* --- Contact --- */
+  .contact{
+    display:flex; flex-wrap:wrap;
+    gap:12px;
+  }
+  .contact a{
+    font-family:var(--mono);
+    font-size:13px;
+    text-decoration:none;
+    padding:12px 18px;
+    border:1px solid var(--ink);
+    border-radius:2px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .contact a:hover{background:var(--ink); color:var(--paper);}
+
+  footer{
+    padding:40px 0 60px;
+    font-family:var(--mono);
+    font-size:12px;
+    opacity:0.6;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">ALBISNESS<span>TZ</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#channels">Channels</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="rows"></div>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">Computer Engineer · AI Engineer · Content Creator</div>
+    <h1>Rooted in soil.<br>Built for <em>code.</em></h1>
+    <p class="lede">
+      I'm AlbisnessTz — I grew up on farmland and grew into software. Today I build with AI,
+      write and edit for authors, ship Android apps from my phone, and create content
+      that carries a spiritual voice into everyday life. This page is the field where
+      all of that lives in one place.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="#contact">Work with me</a>
+      <a class="btn btn-outline" href="#services">See what I do</a>
+    </div>
+
+    <svg class="growth" viewBox="0 0 640 120" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10,110 C 80,110 90,60 160,60 S 260,20 340,40 S 480,10 560,20 S 610,15 630,10" />
+      <circle cx="630" cy="10" r="5"></circle>
+    </svg>
+  </section>
+
+  <section id="about">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>About</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>
+          My parents are agriculturalists — the land taught me patience, and how
+          something small and unpromising can be tended into something that feeds
+          people. I bring that same mindset to engineering: start small, tend it daily,
+          let it grow.
+        </p>
+        <p>
+          I taught myself C, C++, and C# from a phone before I ever touched a laptop
+          with real resources. I now work across AI-assisted development, Android app
+          building through mobile IDEs, and prompt engineering — using AI tools to
+          design and ship systems end to end.
+        </p>
+        <p>
+          Outside of engineering, I edit and format manuscripts for independent authors,
+          and I create content across YouTube, TikTok, and Instagram — some of it
+          technical, some of it spiritual. I lead with faith as much as I lead with logic.
+        </p>
+      </div>
+      <div class="roots">
+        <div><span class="k">origin</span> → <span class="v">local agricultural family</span></div>
+        <div><span class="k">builds_on</span> → <span class="v">Android device + AI tools</span></div>
+        <div><span class="k">languages</span> → <span class="v">C, C++, C#</span></div>
+        <div><span class="k">domain</span> → <span class="v">AI engineering, prompting</span></div>
+        <div><span class="k">also</span> → <span class="v">manuscript editing</span></div>
+        <div><span class="k">also</span> → <span class="v">content creation</span></div>
+        <div><span class="k">also</span> → <span class="v">spiritual leadership</span></div>
+        <div><span class="k">status</span> → <span class="v">building, always</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>Skills &amp; tools</h2>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-cell">
+        <h3>Languages</h3>
+        <ul>
+          <li>C</li>
+          <li>C++</li>
+          <li>C#</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <h3>Mobile development</h3>
+        <ul>
+          <li>Android IDE (on-device)</li>
+          <li>App generation with AI tools</li>
+          <li>End-to-end system design</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <h3>AI &amp; prompting</h3>
+        <ul>
+          <li>Prompt engineering</li>
+          <li>AI-assisted app &amp; system builds</li>
+          <li>Workflow automation</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <h3>Editorial</h3>
+        <ul>
+          <li>Manuscript editing</li>
+          <li>Formatting for authors</li>
+          <li>Proofreading &amp; structure</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <h3>Content</h3>
+        <ul>
+          <li>YouTube</li>
+          <li>TikTok</li>
+          <li>Instagram</li>
+        </ul>
+      </div>
+      <div class="skill-cell">
+        <h3>Leadership</h3>
+        <ul>
+          <li>Spiritual guidance</li>
+          <li>Community mentorship</li>
+          <li>Public speaking</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>What I can do for you</h2>
+    </div>
+    <div class="services">
+      <div class="service-row">
+        <span class="num">01</span>
+        <div>
+          <h3>App &amp; software development</h3>
+          <p>Native builds in C/C++/C#, Android apps developed entirely on-device, and AI-assisted system generation — from idea to working product.</p>
+        </div>
+      </div>
+      <div class="service-row">
+        <span class="num">02</span>
+        <div>
+          <h3>Manuscript editing</h3>
+          <p>Line editing, formatting, and structural feedback for book authors preparing a manuscript for publication.</p>
+        </div>
+      </div>
+      <div class="service-row">
+        <span class="num">03</span>
+        <div>
+          <h3>AI prompting &amp; consulting</h3>
+          <p>Designing prompts and AI workflows for people and small teams who want to build faster with AI tools.</p>
+        </div>
+      </div>
+      <div class="service-row">
+        <span class="num">04</span>
+        <div>
+          <h3>Content &amp; spiritual guidance</h3>
+          <p>Video content, teaching, and mentorship across faith and everyday life, shared across YouTube, TikTok, and Instagram.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="channels">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>Find me here</h2>
+    </div>
+    <div class="channels">
+      <div class="channel-card">
+        <div class="plat">YouTube</div>
+        <a href="#" target="_blank" rel="noopener">@YourChannelName</a>
+        <p>Long-form tech, faith, and life content.</p>
+      </div>
+      <div class="channel-card">
+        <div class="plat">TikTok</div>
+        <a href="#" target="_blank" rel="noopener">@YourHandle</a>
+        <p>Short clips, quick lessons, daily thoughts.</p>
+      </div>
+      <div class="channel-card">
+        <div class="plat">Instagram</div>
+        <a href="#" target="_blank" rel="noopener">@YourHandle</a>
+        <p>Behind the scenes and community updates.</p>
+      </div>
+      <div class="channel-card">
+        <div class="plat">GitHub</div>
+        <a href="#" target="_blank" rel="noopener">github.com/yourusername</a>
+        <p>Code, apps, and open projects.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="spirit">
+    <div class="spirit-block">
+      <blockquote>
+        "Whatever soil you were planted in — a field, a farm, a small village — you can still
+        grow something that reaches far past it. Faith and skill are not opposites. I build with both."
+      </blockquote>
+      <cite>— AlbisnessTz</cite>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2>Get in touch</h2>
+    </div>
+    <div class="contact">
+      <a href="mailto:your.email@example.com">Email me</a>
+      <a href="#" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
+
+</div>
+
+<div class="rows"></div>
+<footer>AlbisnessTz · built from a phone, one commit at a time</footer>
+
+</body>
+</html>
