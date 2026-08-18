@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlbisnessTz — Engineer. Creator. Guide.</title>
+<style>
+  :root{
+    --bg:#0a0a10;
+    --bg-alt:#111219;
+    --card:#15161f;
+    --text:#eceaf5;
+    --muted:#9491a8;
+    --violet:#8b6bff;
+    --violet-soft:rgba(139,107,255,0.12);
+    --amber:#ffb454;
+    --green:#4fd88a;
+    --line:rgba(255,255,255,0.08);
+    --mono:'JetBrains Mono','SFMono-Regular','Courier New',monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; color-scheme: dark;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 15% 0%, rgba(139,107,255,0.10), transparent 40%),
+      radial-gradient(circle at 85% 20%, rgba(255,180,84,0.06), transparent 40%);
+    background-attachment:fixed;
+  }
+  ::selection{background:var(--violet); color:#fff;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+
+  /* signature glow rule */
+  .glow-line{
+    height:2px; width:100%;
+    background:linear-gradient(90deg, transparent, var(--violet), var(--amber), var(--green), transparent);
+    opacity:0.7;
+  }
+
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,10,16,0.75);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{display:flex; justify-content:space-between; align-items:center; padding:16px 24px;}
+  .logo{font-family:var(--mono); font-weight:700; font-size:14px; letter-spacing:0.5px;}
+  .logo span{color:var(--violet);}
+  nav ul{list-style:none; display:flex; gap:22px;}
+  nav a{font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); transition:color 0.2s;}
+  nav a:hover{color:var(--amber);}
+  @media (max-width:640px){ nav ul{gap:12px;} nav a{font-size:9.5px;} }
+
+  .hero{padding:100px 0 76px; position:relative;}
+  .eyebrow{
+    font-family:var(--mono); font-size:12.5px; text-transform:uppercase; letter-spacing:2px;
+    color:var(--green); margin-bottom:20px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:24px; height:1px; background:var(--green);}
+  h1{
+    font-family:-apple-system,'Segoe UI',sans-serif; font-weight:800;
+    font-size:clamp(38px,7.5vw,72px); line-height:1.04; letter-spacing:-1px; max-width:12ch;
+  }
+  h1 .grad{
+    background:linear-gradient(90deg, var(--violet), var(--amber));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lede{margin-top:24px; max-width:58ch; font-size:18px; color:var(--muted);}
+  .hero-cta{margin-top:34px; display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:12.5px; text-transform:uppercase; letter-spacing:1px;
+    padding:14px 24px; border-radius:8px; display:inline-block; transition:transform 0.15s, box-shadow 0.15s;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-solid{background:linear-gradient(90deg, var(--violet), #6a4de8); color:#fff; box-shadow:0 8px 24px rgba(139,107,255,0.25);}
+  .btn-outline{border:1px solid var(--line); color:var(--text);}
+  .btn-outline:hover{border-color:var(--violet);}
+
+  section{padding:60px 0;}
+  .section-head{display:flex; align-items:baseline; gap:14px; margin-bottom:34px;}
+  .section-num{font-family:var(--mono); font-size:12.5px; color:var(--amber);}
+  h2{font-size:clamp(24px,4vw,32px); font-weight:800;}
+
+  .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px;}
+  @media (max-width:720px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid p{margin-bottom:16px; font-size:15.5px; color:#c9c6d8;}
+  .roots{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:26px; font-family:var(--mono); font-size:12.5px; line-height:2;
+  }
+  .roots .k{color:var(--violet);}
+  .roots .v{color:var(--text); opacity:0.9;}
+
+  .skill-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px;}
+  .skill-cell{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:22px; transition:border-color 0.2s, transform 0.2s;}
+  .skill-cell:hover{border-color:var(--violet); transform:translateY(-3px);}
+  .skill-cell h3{font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--amber); margin-bottom:10px;}
+  .skill-cell ul{list-style:none; font-size:14px;}
+  .skill-cell li{padding:3px 0; color:#c9c6d8;}
+  .skill-cell li::before{content:'— '; color:var(--green);}
+
+  .services{display:flex; flex-direction:column;}
+  .service-row{display:grid; grid-template-columns:64px 1fr; gap:18px; padding:24px 0; border-top:1px solid var(--line);}
+  .service-row:last-child{border-bottom:1px solid var(--line);}
+  .service-row .num{font-family:var(--mono); color:var(--violet); font-size:14px;}
+  .service-row h3{font-size:18px; margin-bottom:6px;}
+  .service-row p{font-size:14.5px; color:var(--muted); max-width:60ch;}
+
+  .channels{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px;}
+  .channel-card{
+    background:var(--card); border:1px solid var(--line); border-radius:12px; padding:22px;
+    transition:border-color 0.2s, transform 0.2s; display:flex; flex-direction:column; gap:8px;
+  }
+  .channel-card:hover{border-color:var(--green); transform:translateY(-3px);}
+  .channel-card .plat{display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:1px; color:var(--muted);}
+  .channel-card .plat svg{width:16px; height:16px; flex-shrink:0;}
+  .channel-card a.handle{font-size:15px; font-weight:700; color:var(--text);}
+  .channel-card a.handle:hover{color:var(--amber);}
+  .channel-card p{font-size:13px; color:var(--muted);}
+
+  .spirit-block{
+    background:linear-gradient(160deg, var(--violet-soft), transparent 60%), var(--card);
+    border:1px solid var(--line); border-radius:16px; padding:44px 32px; position:relative; overflow:hidden;
+  }
+  .spirit-block blockquote{font-size:clamp(19px,3vw,26px); line-height:1.45; font-weight:600;}
+  .spirit-block cite{display:block; margin-top:18px; font-family:var(--mono); font-size:12px; color:var(--amber); font-style:normal;}
+
+  .contact{display:flex; flex-wrap:wrap; gap:12px;}
+  .contact a{
+    font-family:var(--mono); font-size:12.5px; display:flex; align-items:center; gap:8px;
+    padding:13px 18px; border:1px solid var(--line); border-radius:8px;
+    text-transform:uppercase; letter-spacing:0.5px; transition:background 0.15s, border-color 0.15s;
+  }
+  .contact a svg{width:15px; height:15px;}
+  .contact a:hover{background:var(--card); border-color:var(--violet);}
+
+  footer{padding:40px 0 60px; font-family:var(--mono); font-size:11.5px; color:var(--muted); text-align:center;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">ALBISNESS<span>TZ</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#channels">Channels</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+<div class="glow-line"></div>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">Computer Engineer · AI Engineer · Content Creator</div>
+    <h1>Rooted in soil.<br>Built for <span class="grad">code.</span></h1>
+    <p class="lede">
+      I'm AlbisnessTz — I grew up on farmland and grew into software. Today I build with AI,
+      write and edit for authors, ship Android apps from my phone, and create content
+      that carries a spiritual voice into everyday life.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="#contact">Work with me</a>
+      <a class="btn btn-outline" href="#services">See what I do</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-head"><span class="section-num">01</span><h2>About</h2></div>
+    <div class="about-grid">
+      <div>
+        <p>My parents are agriculturalists — the land taught me patience, and how something small and unpromising can be tended into something that feeds people. I bring that same mindset to engineering: start small, tend it daily, let it grow.</p>
+        <p>I taught myself C, C++, and C# from a phone before I ever touched a laptop with real resources. I now work across AI-assisted development, Android app building through mobile IDEs, and prompt engineering — using AI tools to design and ship systems end to end.</p>
+        <p>Outside of engineering, I edit and format manuscripts for independent authors, and I create content across YouTube, TikTok, and Instagram — some of it technical, some of it spiritual. I lead with faith as much as I lead with logic.</p>
+      </div>
+      <div class="roots">
+        <div><span class="k">origin</span> → <span class="v">local agricultural family</span></div>
+        <div><span class="k">builds_on</span> → <span class="v">Android device + AI tools</span></div>
+        <div><span class="k">languages</span> → <span class="v">C, C++, C#</span></div>
+        <div><span class="k">domain</span> → <span class="v">AI engineering, prompting</span></div>
+        <div><span class="k">also</span> → <span class="v">manuscript editing</span></div>
+        <div><span class="k">also</span> → <span class="v">content creation</span></div>
+        <div><span class="k">also</span> → <span class="v">spiritual leadership</span></div>
+        <div><span class="k">status</span> → <span class="v">building, always</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head"><span class="section-num">02</span><h2>Skills &amp; tools</h2></div>
+    <div class="skill-grid">
+      <div class="skill-cell"><h3>Languages</h3><ul><li>C</li><li>C++</li><li>C#</li></ul></div>
+      <div class="skill-cell"><h3>Mobile development</h3><ul><li>Android IDE (on-device)</li><li>App generation with AI tools</li><li>End-to-end system design</li></ul></div>
+      <div class="skill-cell"><h3>AI &amp; prompting</h3><ul><li>Prompt engineering</li><li>AI-assisted app &amp; system builds</li><li>Workflow automation</li></ul></div>
+      <div class="skill-cell"><h3>Editorial</h3><ul><li>Manuscript editing</li><li>Formatting for authors</li><li>Proofreading &amp; structure</li></ul></div>
+      <div class="skill-cell"><h3>Content</h3><ul><li>YouTube</li><li>TikTok</li><li>Instagram</li></ul></div>
+      <div class="skill-cell"><h3>Leadership</h3><ul><li>Spiritual guidance</li><li>Community mentorship</li><li>Public speaking</li></ul></div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="section-head"><span class="section-num">03</span><h2>What I can do for you</h2></div>
+    <div class="services">
+      <div class="service-row"><span class="num">01</span><div><h3>App &amp; software development</h3><p>Native builds in C/C++/C#, Android apps developed entirely on-device, and AI-assisted system generation — from idea to working product.</p></div></div>
+      <div class="service-row"><span class="num">02</span><div><h3>Manuscript editing</h3><p>Line editing, formatting, and structural feedback for book authors preparing a manuscript for publication.</p></div></div>
+      <div class="service-row"><span class="num">03</span><div><h3>AI prompting &amp; consulting</h3><p>Designing prompts and AI workflows for people and small teams who want to build faster with AI tools.</p></div></div>
+      <div class="service-row"><span class="num">04</span><div><h3>Content &amp; spiritual guidance</h3><p>Video content, teaching, and mentorship across faith and everyday life, shared across YouTube, TikTok, and Instagram.</p></div></div>
+    </div>
+  </section>
+
+  <section id="channels">
+    <div class="section-head"><span class="section-num">04</span><h2>Find me here</h2></div>
+    <div class="channels">
+
+      <div class="channel-card">
+        <div class="plat">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2s-.2-1.7-.9-2.4c-.9-.9-1.9-.9-2.4-1C16.9 2.5 12 2.5 12 2.5h0s-4.9 0-8.2.3c-.5.1-1.5.1-2.4 1C.7 4.5.5 6.2.5 6.2S.3 8.2.3 10.2v1.6c0 2 .2 4 .2 4s.2 1.7.9 2.4c.9.9 2.1.9 2.6 1 1.9.2 8 .3 8 .3s4.9 0 8.2-.3c.5-.1 1.5-.1 2.4-1 .7-.7.9-2.4.9-2.4s.2-2 .2-4v-1.6c0-2-.2-4-.2-4zM9.7 14.9V7.7l6.5 3.6-6.5 3.6z"/></svg>
+          YouTube
+        </div>
+        <a class="handle" href="https://youtube.com/@albisnesstz?si=96TGcEg5TRKy_qtU" target="_blank" rel="noopener">@albisnesstz</a>
+        <p>Tech, faith, and life content.</p>
+      </div>
+
+      <div class="channel-card">
+        <div class="plat">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8c-.9-1-1.4-2.3-1.4-3.8h-3.1v14.2c0 1.6-1.3 2.9-2.9 2.9s-2.9-1.3-2.9-2.9 1.3-2.9 2.9-2.9c.3 0 .6 0 .8.1V9.9c-.3 0-.5-.1-.8-.1-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6V8.4c1.2.9 2.7 1.4 4.3 1.4V6.7c-1 0-2-.3-2.9-.9z"/></svg>
+          TikTok
+        </div>
+        <a class="handle" href="https://www.tiktok.com/@albisness_tz" target="_blank" rel="noopener">@albisness_tz</a>
+        <p>Short clips, quick lessons, daily thoughts.</p>
+      </div>
+
+      <div class="channel-card">
+        <div class="plat">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 2.2.3 2.9.6.8.3 1.5.7 2.1 1.4.6.6 1 1.3 1.4 2.1.3.7.5 1.7.6 2.9.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 2.2-.6 2.9-.3.8-.7 1.5-1.4 2.1-.6.6-1.3 1-2.1 1.4-.7.3-1.7.5-2.9.6-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-2.2-.3-2.9-.6-.8-.3-1.5-.7-2.1-1.4-.6-.6-1-1.3-1.4-2.1-.3-.7-.5-1.7-.6-2.9-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.3-2.2.6-2.9.3-.8.7-1.5 1.4-2.1.6-.6 1.3-1 2.1-1.4.7-.3 1.7-.5 2.9-.6 1.3-.1 1.7-.1 4.9-.1M12 0C8.7 0 8.3 0 7 .1c-1.3.1-2.2.3-3 .6-.8.3-1.6.8-2.3 1.5C1 2.9.5 3.7.2 4.5c-.3.8-.5 1.7-.6 3C-.5 8.8-.5 9.2-.5 12.5s0 3.7.1 5c.1 1.3.3 2.2.6 3 .3.8.8 1.6 1.5 2.3.7.7 1.5 1.2 2.3 1.5.8.3 1.7.5 3 .6 1.3.1 1.7.1 5 .1s3.7 0 5-.1c1.3-.1 2.2-.3 3-.6.8-.3 1.6-.8 2.3-1.5.7-.7 1.2-1.5 1.5-2.3.3-.8.5-1.7.6-3 .1-1.3.1-1.7.1-5s0-3.7-.1-5c-.1-1.3-.3-2.2-.6-3-.3-.8-.8-1.6-1.5-2.3C21.1.9 20.3.4 19.5.1c-.8-.3-1.7-.5-3-.6C15.2 0 14.8 0 12 0z" transform="translate(0.5,0)"/><path d="M12 5.9a6.1 6.1 0 100 12.2 6.1 6.1 0 000-12.2zm0 10a3.9 3.9 0 110-7.8 3.9 3.9 0 010 7.8zM18.4 5.6a1.4 1.4 0 11-2.8 0 1.4 1.4 0 012.8 0z"/></svg>
+          Instagram
+        </div>
+        <a class="handle" href="https://www.instagram.com/albisnesstz1?igsh=eWNsamZtNGJ0N3U=&igsi=eWNsamZtNGJ0N3U=" target="_blank" rel="noopener">@albisnesstz1</a>
+        <p>Behind the scenes and community updates.</p>
+      </div>
+
+      <div class="channel-card">
+        <div class="plat">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11 11 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A10.5 10.5 0 0023.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+          GitHub
+        </div>
+        <a class="handle" href="https://github.com/AlbisnessTz" target="_blank" rel="noopener">@AlbisnessTz</a>
+        <p>Code, apps, and open projects.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="spirit">
+    <div class="spirit-block">
+      <blockquote>"Whatever soil you were planted in — a field, a farm, a small village — you can still grow something that reaches far past it. Faith and skill are not opposites. I build with both."</blockquote>
+      <cite>— AlbisnessTz</cite>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-head"><span class="section-num">05</span><h2>Get in touch</h2></div>
+    <div class="contact">
+      <a href="mailto:albisnesstz@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+        Email
+      </a>
+      <a href="https://wa.me/255756215162" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2.1 3.2 5 4.4.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.5-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.5 21.5 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.6 0-3.2-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.8 14.8 3.3 13.4 3.3 12c0-4.8 3.9-8.7 8.7-8.7s8.7 3.9 8.7 8.7-3.9 8.7-8.7 8.7z"/></svg>
+        WhatsApp
+      </a>
+      <a href="https://github.com/AlbisnessTz" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11 11 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A10.5 10.5 0 0023.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<div class="glow-line"></div>
+<footer>AlbisnessTz · built from a phone, one commit at a time</footer>
+
+</body>
+</html>
