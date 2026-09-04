@@ -56,7 +56,20 @@
   nav a{font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); transition:color 0.2s;}
   nav a:hover{color:var(--amber);}
   @media (max-width:640px){ nav ul{gap:12px;} nav a{font-size:9.5px;} }
-
+.profile-photo{
+  position:absolute;
+  top:20px;
+  right:0;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid var(--violet);
+  box-shadow:0 0 0 6px rgba(139,107,255,0.10), 0 15px 40px rgba(139,107,255,0.25);
+}
+@media (max-width:720px){
+  .profile-photo{ width:90px; height:90px; top:10px; }
+}
   .hero{padding:100px 0 76px; position:relative;}
   .eyebrow{
     font-family:var(--mono); font-size:12.5px; text-transform:uppercase; letter-spacing:2px;
