@@ -785,6 +785,89 @@
       html{scroll-behavior:auto}
       *,*::before,*::after{transition:none !important}
     }
+
+    /* GITHUB PROJECTS */
+    .github-projects{
+      margin-top:34px;
+    }
+    .github-project-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+    .github-card{
+      display:flex;
+      flex-direction:column;
+      min-height:245px;
+      padding:22px;
+      border:1px solid var(--line);
+      border-radius:17px;
+      background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015));
+      transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+    }
+    .github-card:hover{
+      transform:translateY(-4px);
+      border-color:rgba(66,217,255,.34);
+      box-shadow:0 20px 45px rgba(0,0,0,.28);
+    }
+    .github-card-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .github-card h3{
+      font-size:18px;
+      line-height:1.2;
+      word-break:break-word;
+    }
+    .github-badge{
+      flex:none;
+      padding:6px 8px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      color:var(--cyan);
+      font:700 8px var(--mono);
+      text-transform:uppercase;
+      letter-spacing:.8px;
+    }
+    .github-desc{
+      margin-top:11px;
+      color:var(--muted);
+      font-size:13px;
+      min-height:62px;
+    }
+    .github-meta{
+      margin-top:14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+    }
+    .github-chip{
+      padding:6px 8px;
+      border-radius:7px;
+      background:rgba(255,255,255,.035);
+      border:1px solid var(--line);
+      color:#cbd3df;
+      font:600 9px var(--mono);
+    }
+    .github-actions{
+      margin-top:auto;
+      padding-top:17px;
+      display:flex;
+      gap:8px;
+    }
+    .github-actions .small-link{
+      flex:1;
+    }
+    .github-empty{
+      padding:22px;
+      border:1px dashed var(--line);
+      border-radius:14px;
+      color:var(--muted);
+      font:600 11px var(--mono);
+    }
+
   </style>
 </head>
 
@@ -801,6 +884,7 @@
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#github-projects">GitHub</a></li>
         <li><a href="#skills">Tech</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#channels">Channels</a></li>
@@ -997,6 +1081,23 @@
               </div>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ALL GITHUB PROJECTS -->
+    <section id="github-projects">
+      <div class="container">
+        <span class="section-kicker">GitHub portfolio</span>
+        <h2 class="section-title">All my public GitHub projects.</h2>
+        <p class="section-copy">
+          Explore the repositories behind my work. Every project below has a direct link to its main GitHub page.
+        </p>
+        <div class="github-projects">
+          <div class="github-project-grid" id="githubProjectGrid">
+            <div class="github-empty">Loading public repositories…</div>
+          </div>
         </div>
       </div>
     </section>
@@ -1521,6 +1622,81 @@
   } else {
     loadCms();
   }
+})();
+</script>
+
+
+<script>
+(() => {
+  const grid = document.getElementById("githubProjectGrid");
+  if (!grid) return;
+
+  const fallbackRepos = [
+    "AlbisnessTz",
+    "Simple-Calculator",
+    "Csharp-Win-Calculator",
+    "ArrayWinformsPractice",
+    "HybridBusinessPOS.",
+    "AFCON-EAST-AFRICA-"
+  ];
+
+  const esc = (value = "") => String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+  const repoCard = (repo) => {
+    const name = repo.name || "GitHub Project";
+    const description = repo.description || "Public project repository by AlbisnessTz.";
+    const language = repo.language || "Repository";
+    const htmlUrl = repo.html_url || ("https://github.com/AlbisnessTz/" + encodeURIComponent(name));
+    const homepage = typeof repo.homepage === "string" ? repo.homepage.trim() : "";
+
+    return '<article class="github-card">' +
+      '<div class="github-card-top">' +
+        '<h3>' + esc(name) + '</h3>' +
+        '<span class="github-badge">GitHub</span>' +
+      '</div>' +
+      '<p class="github-desc">' + esc(description) + '</p>' +
+      '<div class="github-meta">' +
+        '<span class="github-chip">' + esc(language) + '</span>' +
+        '<span class="github-chip">Public repository</span>' +
+      '</div>' +
+      '<div class="github-actions">' +
+        '<a class="small-link" href="' + esc(htmlUrl) + '" target="_blank" rel="noopener">Open project ↗</a>' +
+        (homepage ? '<a class="small-link" href="' + esc(homepage) + '" target="_blank" rel="noopener">Live site ↗</a>' : '') +
+      '</div>' +
+    '</article>';
+  };
+
+  async function loadGithubProjects() {
+    try {
+      const response = await fetch("https://api.github.com/users/AlbisnessTz/repos?per_page=100&sort=updated&type=public");
+      if (!response.ok) throw new Error("GitHub API returned " + response.status);
+
+      const repos = await response.json();
+      const usable = repos
+        .filter(repo => repo && repo.name && repo.name !== "AlbisnessTz.github.io" && !repo.archived)
+        .sort((a, b) => new Date(b.updated_at || 0) - new Date(a.updated_at || 0));
+
+      if (!usable.length) throw new Error("No public repositories found");
+
+      grid.innerHTML = usable.map(repoCard).join("");
+    } catch (error) {
+      console.warn("GitHub projects:", error);
+
+      grid.innerHTML = fallbackRepos.map(name => repoCard({
+        name,
+        description: "Open this public GitHub repository to explore the project.",
+        language: "GitHub",
+        html_url: "https://github.com/AlbisnessTz/" + encodeURIComponent(name)
+      })).join("");
+    }
+  }
+
+  loadGithubProjects();
 })();
 </script>
 
