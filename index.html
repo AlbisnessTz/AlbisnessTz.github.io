@@ -1504,8 +1504,16 @@
 
     grid.innerHTML = data.map(p => {
       const tech = Array.isArray(p.technologies) ? p.technologies : [];
-      const github = safeUrl(p.github_url);
-      const live = safeUrl(p.live_url);
+      const knownGithub = {
+        "HybridBusinessPOS": "https://github.com/AlbisnessTz/HybridBusinessPOS.",
+        "HybridBusinessPOS.": "https://github.com/AlbisnessTz/HybridBusinessPOS.",
+        "Documented": "https://github.com/AlbisnessTz/Documented",
+        "Global Sports App": "https://github.com/AlbisnessTz/AFCON-EAST-AFRICA-",
+        "AFCON East Africa": "https://github.com/AlbisnessTz/AFCON-EAST-AFRICA-",
+        "Spiritual Friends Online": "https://github.com/AlbisnessTz/spiritualfriendsonline"
+      };
+      const github = knownGithub[p.title] || safeUrl(p.github_url);
+      const live = safeUrl(p.live_url) || (p.title === "Spiritual Friends Online" ? "https://spiritualfriendsonline.lovable.app/" : "");
 
       return '<article class="project-card">' +
         projectVisual(p) +
