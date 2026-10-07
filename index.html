@@ -1509,7 +1509,7 @@
         "HybridBusinessPOS.": "https://github.com/AlbisnessTz/HybridBusinessPOS.",
         "Documented": "https://github.com/AlbisnessTz/Documented",
         "Global Sports App": "https://github.com/AlbisnessTz/AFCON-EAST-AFRICA-",
-        "AFCON East Africa": "https://github.com/AlbisnessTz/AFCON-EAST-AFRICA-",
+        "Global Sports App": "https://github.com/AlbisnessTz/AFCON-EAST-AFRICA-",
         "Spiritual Friends Online": "https://github.com/AlbisnessTz/spiritualfriendsonline"
       };
       const github = knownGithub[p.title] || safeUrl(p.github_url);
@@ -1641,7 +1641,7 @@
   const fallbackRepos = [
     "Documented",
     "HybridBusinessPOS.",
-    "AFCON-EAST-AFRICA-",
+    "Global Sports App",
     "Csharp-Win-Calculator",
     "Simple-Calculator",
     "ArrayWinformsPractice"
@@ -1655,7 +1655,8 @@
     .replace(/'/g, "&#039;");
 
   const repoCard = (repo) => {
-    const name = repo.name || "GitHub Project";
+    const repoName = repo.name || "GitHub Project";
+    const name = repoName === "AFCON-EAST-AFRICA-" ? "Global Sports App" : repoName;
     const description = repo.description || "Public project repository by AlbisnessTz.";
     const language = repo.language || "Repository";
     const htmlUrl = repo.html_url || ("https://github.com/AlbisnessTz/" + encodeURIComponent(name));
@@ -1686,7 +1687,7 @@
       const repos = await response.json();
       const priority = ["Documented","HybridBusinessPOS.","AFCON-EAST-AFRICA-","Csharp-Win-Calculator","Simple-Calculator","ArrayWinformsPractice"];
       const usable = repos
-        .filter(repo => repo && repo.name && repo.name !== "AlbisnessTz.github.io" && !repo.archived)
+        .filter(repo => repo && repo.name && repo.name !== "AlbisnessTz.github.io" && repo.name !== "AlbisnessTz" && !repo.archived)
         .sort((a, b) => {
           const ai = priority.indexOf(a.name);
           const bi = priority.indexOf(b.name);
@@ -1704,7 +1705,7 @@
         name,
         description: "Open this public GitHub repository to explore the project.",
         language: "GitHub",
-        html_url: "https://github.com/AlbisnessTz/" + encodeURIComponent(name)
+        html_url: name === "Global Sports App" ? "https://github.com/AlbisnessTz/AFCON-EAST-AFRICA-" : "https://github.com/AlbisnessTz/" + encodeURIComponent(name)
       })).join("");
     }
   }
