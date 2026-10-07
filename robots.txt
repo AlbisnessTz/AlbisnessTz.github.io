@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://albisnesstz.github.io/sitemap.xml
