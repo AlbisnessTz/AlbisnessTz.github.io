@@ -1031,7 +1031,7 @@
             <div class="project-body">
               <div class="project-top">
                 <h3 class="project-name">Documented</h3>
-                <span class="project-type">Desktop app</span>
+                <span class="project-type">Business platform</span>
               </div>
               <p class="project-desc">
                 An online/offline business document and invoice platform designed to help businesses create, manage and share professional documents.
@@ -1066,7 +1066,7 @@
             <div class="project-body">
               <div class="project-top">
                 <h3 class="project-name">Global Sports App</h3>
-                <span class="project-type">Community platform</span>
+                <span class="project-type">Sports app</span>
               </div>
               <p class="project-desc">
                 A public sports-app project evolving from an East Africa / AFCON concept toward a broader global live-scores experience.
@@ -1676,9 +1676,15 @@
       if (!response.ok) throw new Error("GitHub API returned " + response.status);
 
       const repos = await response.json();
+      const priority = ["Documented","HybridBusinessPOS.","AFCON-EAST-AFRICA-","Csharp-Win-Calculator","Simple-Calculator","ArrayWinformsPractice"];
       const usable = repos
         .filter(repo => repo && repo.name && repo.name !== "AlbisnessTz.github.io" && !repo.archived)
-        .sort((a, b) => new Date(b.updated_at || 0) - new Date(a.updated_at || 0));
+        .sort((a, b) => {
+          const ai = priority.indexOf(a.name);
+          const bi = priority.indexOf(b.name);
+          if (ai !== -1 || bi !== -1) return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+          return new Date(b.updated_at || 0) - new Date(a.updated_at || 0);
+        });
 
       if (!usable.length) throw new Error("No public repositories found");
 
